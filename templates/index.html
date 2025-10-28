@@ -1,0 +1,267 @@
+{% extends "base.html" %}
+
+{% block title %}IndieStream - Independent Video Platform{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #2874f0 0%, #1e5bc6 100%);
+        color: #fff;
+        padding: 80px 20px;
+        text-align: center;
+        border-radius: 4px;
+        margin-bottom: 40px;
+    }
+
+    .hero-title {
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .hero-subtitle {
+        font-size: 20px;
+        margin-bottom: 30px;
+        opacity: 0.95;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        padding: 15px 40px;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s;
+    }
+
+    .btn-primary {
+        background: #fff;
+        color: #2874f0;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .btn-secondary {
+        background: transparent;
+        color: #fff;
+        border: 2px solid #fff;
+    }
+
+    .btn-secondary:hover {
+        background: #fff;
+        color: #2874f0;
+    }
+
+    .features-section {
+        margin: 60px 0;
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 32px;
+        font-weight: bold;
+        margin-bottom: 40px;
+        color: #212121;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+    }
+
+    .feature-card {
+        background: #fff;
+        padding: 30px;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        text-align: center;
+        transition: transform 0.3s;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+
+    .feature-icon {
+        font-size: 48px;
+        margin-bottom: 20px;
+    }
+
+    .feature-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #212121;
+    }
+
+    .feature-description {
+        font-size: 14px;
+        color: #878787;
+        line-height: 1.6;
+    }
+
+    .stats-section {
+        background: linear-gradient(135deg, #ff9800 0%, #ff6f00 100%);
+        color: #fff;
+        padding: 60px 20px;
+        border-radius: 4px;
+        margin: 60px 0;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        text-align: center;
+    }
+
+    .stat-item {
+        padding: 20px;
+    }
+
+    .stat-number {
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .stat-label {
+        font-size: 18px;
+        opacity: 0.9;
+    }
+
+    .cta-section {
+        background: #fff;
+        padding: 60px 40px;
+        border-radius: 4px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .cta-title {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #212121;
+    }
+
+    .cta-text {
+        font-size: 18px;
+        color: #878787;
+        margin-bottom: 30px;
+    }
+
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 32px;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+        }
+
+        .section-title {
+            font-size: 24px;
+        }
+
+        .stat-number {
+            font-size: 36px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <h1 class="hero-title">Welcome to IndieStream</h1>
+    <p class="hero-subtitle">The Ultimate Platform for Independent Video Creators</p>
+    <div class="hero-buttons">
+        <a href="{{ url_for('register') }}" class="btn btn-primary">Get Started</a>
+        <a href="{{ url_for('browse') }}" class="btn btn-secondary">Browse Videos</a>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <h2 class="section-title">Why Choose IndieStream?</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">🎬</div>
+            <h3 class="feature-title">Upload & Share</h3>
+            <p class="feature-description">Easily upload your video metadata and share your creative work with the world.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔍</div>
+            <h3 class="feature-title">Discover Content</h3>
+            <p class="feature-description">Browse and search through thousands of independent videos across various genres.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3 class="feature-title">Track Analytics</h3>
+            <p class="feature-description">Monitor your video performance with detailed view counts and engagement metrics.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🎨</div>
+            <h3 class="feature-title">Creative Freedom</h3>
+            <p class="feature-description">Maintain full control over your content with flexible licensing options.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🌐</div>
+            <h3 class="feature-title">Global Reach</h3>
+            <p class="feature-description">Connect with viewers from around the world and grow your audience.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3 class="feature-title">Fast & Reliable</h3>
+            <p class="feature-description">Built on AWS infrastructure for maximum performance and reliability.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="stats-grid">
+        <div class="stat-item">
+            <div class="stat-number">10K+</div>
+            <div class="stat-label">Videos</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">5K+</div>
+            <div class="stat-label">Creators</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">100K+</div>
+            <div class="stat-label">Views</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Genres</div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <h2 class="cta-title">Ready to Share Your Story?</h2>
+    <p class="cta-text">Join thousands of independent creators who are already sharing their passion on IndieStream.</p>
+    <a href="{{ url_for('register') }}" class="btn btn-primary">Create Your Account</a>
+</section>
+{% endblock %}

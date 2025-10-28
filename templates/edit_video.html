@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Video - IndieStream{% endblock %}
+
+{% block extra_css %}
+<style>
+    .edit-container {
+        max-width: 800px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 40px;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .edit-header {
+        margin-bottom: 30px;
+    }
+
+    .edit-title {
+        font-size: 28px;
+        font-weight: bold;
+        color: #212121;
+        margin-bottom: 10px;
+    }
+
+    .edit-subtitle {
+        font-size: 14px;
+        color: #878787;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group.full-width {
+        grid-column: 1 / -1;
+    }
+
+    .form-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #212121;
+        margin-bottom: 8px;
+    }
+
+    .form-label .required {
+        color: #ff5252;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 14px;
+        border: 1px solid #c2c2c2;
+        border-radius: 2px;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: #2874f0;
+    }
+
+    .form-control.textarea {
+        min-height: 120px;
+        resize: vertical;
+        font-family: inherit;
+    }
+
+    .form-select {
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 14px;
+        border: 1px solid #c2c2c2;
+        border-radius: 2px;
+        outline: none;
+        cursor: pointer;
+        background: #fff;
+    }
+
+    .form-select:focus {
+        border-color: #2874f0;
+    }
+
+    .form-help {
+        font-size: 12px;
+        color: #878787;
+        margin-top: 5px;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+        padding-top: 30px;
+        border-top: 1px solid #e0e0e0;
+    }
+
+    .btn {
+        padding: 14px 40px;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .btn-primary {
+        background: linear-gradient(to right, #4caf50, #45a049);
+        color: #fff;
+        flex: 1;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+    }
+
+    .btn-secondary {
+        background: #e0e0e0;
+        color: #212121;
+    }
+
+    .btn-secondary:hover {
+        background: #d0d0d0;
+    }
+
+    @media (max-width: 768px) {
+        .edit-container {
+            padding: 25px;
+        }
+
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="edit-container">
+    <div class="edit-header">
+        <h1 class="edit-title">Edit Video ✏️</h1>
+        <p class="edit-subtitle">Update your video information</p>
+    </div>
+
+    <form method="POST" action="{{ url_for('edit_video', video_id=video.video_id) }}">
+        <div class="form-group">
+            <label class="form-label">Video Title <span class="required">*</span></label>
+            <input type="text" name="title" class="form-control" value="{{ video.title }}" required>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Description <span class="required">*</span></label>
+            <textarea name="description" class="form-control textarea" required>{{ video.description }}</textarea>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">Duration <span class="required">*</span></label>
+                <input type="text" name="duration" class="form-control" value="{{ video.duration }}" required>
+                <div class="form-help">Format: MM:SS or HH:MM:SS</div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">License Type <span class="required">*</span></label>
+                <select name="license_type" class="form-select" required>
+                    <option value="Standard" {% if video.license_type == 'Standard' %}selected{% endif %}>Standard License</option>
+                    <option value="Creative Commons" {% if video.license_type == 'Creative Commons' %}selected{% endif %}>Creative Commons</option>
+                    <option value="Commercial" {% if video.license_type == 'Commercial' %}selected{% endif %}>Commercial License</option>
+                    <option value="Personal Use" {% if video.license_type == 'Personal Use' %}selected{% endif %}>Personal Use Only</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Genre Tags</label>
+            <input type="text" name="genre_tags" class="form-control" value="{{ video.genre_tags|join(', ') }}">
+            <div class="form-help">Separate multiple tags with commas</div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">💾 Save Changes</button>
+            <a href="{{ url_for('view_video', video_id=video.video_id) }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

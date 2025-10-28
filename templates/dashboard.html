@@ -1,0 +1,327 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - IndieStream{% endblock %}
+
+{% block extra_css %}
+<style>
+    .dashboard-header {
+        background: #fff;
+        padding: 30px;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+    }
+
+    .dashboard-welcome {
+        font-size: 28px;
+        font-weight: bold;
+        color: #212121;
+        margin-bottom: 10px;
+    }
+
+    .dashboard-subtitle {
+        font-size: 14px;
+        color: #878787;
+    }
+
+    .stats-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .stat-card {
+        background: #fff;
+        padding: 25px;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .stat-icon {
+        font-size: 48px;
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #2874f0, #1e5bc6);
+    }
+
+    .stat-content {
+        flex: 1;
+    }
+
+    .stat-label {
+        font-size: 14px;
+        color: #878787;
+        margin-bottom: 5px;
+    }
+
+    .stat-value {
+        font-size: 32px;
+        font-weight: bold;
+        color: #212121;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .section-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #212121;
+    }
+
+    .btn-upload {
+        padding: 12px 30px;
+        background: linear-gradient(to right, #ff9800, #ff6f00);
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+
+    .btn-upload:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+    }
+
+    .videos-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .video-card {
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        overflow: hidden;
+        transition: transform 0.3s;
+    }
+
+    .video-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+
+    .video-thumbnail {
+        width: 100%;
+        height: 180px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+        color: #fff;
+    }
+
+    .video-info {
+        padding: 15px;
+    }
+
+    .video-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #212121;
+        margin-bottom: 8px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .video-meta {
+        font-size: 13px;
+        color: #878787;
+        margin-bottom: 10px;
+    }
+
+    .video-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-bottom: 15px;
+    }
+
+    .tag {
+        background: #e3f2fd;
+        color: #2874f0;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+    }
+
+    .video-actions {
+        display: flex;
+        gap: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #e0e0e0;
+    }
+
+    .btn-action {
+        flex: 1;
+        padding: 8px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 13px;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+
+    .btn-view {
+        background: #2874f0;
+        color: #fff;
+    }
+
+    .btn-view:hover {
+        background: #1e5bc6;
+    }
+
+    .btn-edit {
+        background: #4caf50;
+        color: #fff;
+    }
+
+    .btn-edit:hover {
+        background: #45a049;
+    }
+
+    .btn-delete {
+        background: #ff5252;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-delete:hover {
+        background: #e04848;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .empty-icon {
+        font-size: 80px;
+        margin-bottom: 20px;
+    }
+
+    .empty-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #212121;
+        margin-bottom: 10px;
+    }
+
+    .empty-text {
+        font-size: 14px;
+        color: #878787;
+        margin-bottom: 30px;
+    }
+
+    @media (max-width: 768px) {
+        .dashboard-header {
+            padding: 20px;
+        }
+
+        .section-header {
+            flex-direction: column;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .videos-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Dashboard Header -->
+<div class="dashboard-header">
+    <h1 class="dashboard-welcome">Welcome back, {{ user.full_name }}! 👋</h1>
+    <p class="dashboard-subtitle">Manage your videos and track your performance</p>
+</div>
+
+<!-- Stats Cards -->
+<div class="stats-container">
+    <div class="stat-card">
+        <div class="stat-icon">🎬</div>
+        <div class="stat-content">
+            <div class="stat-label">Total Videos</div>
+            <div class="stat-value">{{ total_videos }}</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">👁️</div>
+        <div class="stat-content">
+            <div class="stat-label">Total Views</div>
+            <div class="stat-value">{{ total_views }}</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-content">
+            <div class="stat-label">Account Status</div>
+            <div class="stat-value" style="font-size: 20px;">{{ user.account_status|upper }}</div>
+        </div>
+    </div>
+</div>
+
+<!-- Videos Section -->
+<div class="section-header">
+    <h2 class="section-title">Your Videos</h2>
+    <a href="{{ url_for('upload_video') }}" class="btn-upload">+ Upload New Video</a>
+</div>
+
+{% if videos %}
+<div class="videos-grid">
+    {% for video in videos %}
+    <div class="video-card">
+        <div class="video-thumbnail">🎥</div>
+        <div class="video-info">
+            <h3 class="video-title">{{ video.title }}</h3>
+            <div class="video-meta">
+                👁️ {{ video.view_count }} views • ⏱️ {{ video.duration }}
+            </div>
+            <div class="video-tags">
+                {% for tag in video.genre_tags[:3] %}
+                <span class="tag">{{ tag }}</span>
+                {% endfor %}
+            </div>
+            <div class="video-actions">
+                <a href="{{ url_for('view_video', video_id=video.video_id) }}" class="btn-action btn-view">View</a>
+                <a href="{{ url_for('edit_video', video_id=video.video_id) }}" class="btn-action btn-edit">Edit</a>
+                <form method="POST" action="{{ url_for('delete_video', video_id=video.video_id) }}" style="flex: 1;" onsubmit="return confirm('Are you sure you want to delete this video?');">
+                    <button type="submit" class="btn-action btn-delete" style="width: 100%;">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+    <div class="empty-icon">📹</div>
+    <h3 class="empty-title">No Videos Yet</h3>
+    <p class="empty-text">Start sharing your content by uploading your first video!</p>
+    <a href="{{ url_for('upload_video') }}" class="btn-upload">Upload Your First Video</a>
+</div>
+{% endif %}
+{% endblock %}

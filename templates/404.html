@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}404 - Page Not Found{% endblock %}
+
+{% block extra_css %}
+<style>
+    .error-container {
+        max-width: 600px;
+        margin: 80px auto;
+        text-align: center;
+        background: #fff;
+        padding: 60px 40px;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .error-code {
+        font-size: 120px;
+        font-weight: bold;
+        color: #2874f0;
+        line-height: 1;
+        margin-bottom: 20px;
+    }
+
+    .error-icon {
+        font-size: 80px;
+        margin-bottom: 20px;
+    }
+
+    .error-title {
+        font-size: 32px;
+        font-weight: bold;
+        color: #212121;
+        margin-bottom: 15px;
+    }
+
+    .error-message {
+        font-size: 16px;
+        color: #878787;
+        line-height: 1.6;
+        margin-bottom: 35px;
+    }
+
+    .error-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        padding: 14px 30px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: all 0.3s;
+        display: inline-block;
+    }
+
+    .btn-primary {
+        background: linear-gradient(to right, #2874f0, #1e5bc6);
+        color: #fff;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(40, 116, 240, 0.3);
+    }
+
+    .btn-secondary {
+        background: #e0e0e0;
+        color: #212121;
+    }
+
+    .btn-secondary:hover {
+        background: #d0d0d0;
+    }
+
+    @media (max-width: 768px) {
+        .error-container {
+            margin: 40px auto;
+            padding: 40px 20px;
+        }
+
+        .error-code {
+            font-size: 80px;
+        }
+
+        .error-title {
+            font-size: 24px;
+        }
+
+        .error-actions {
+            flex-direction: column;
+        }
+
+        .btn {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="error-container">
+    <div class="error-code">404</div>
+    <div class="error-icon">🔍</div>
+    <h1 class="error-title">Page Not Found</h1>
+    <p class="error-message">
+        Oops! The page you're looking for doesn't exist. It might have been moved or deleted.
+    </p>
+    <div class="error-actions">
+        <a href="{{ url_for('index') }}" class="btn btn-primary">🏠 Go Home</a>
+        <a href="{{ url_for('browse') }}" class="btn btn-secondary">🎬 Browse Videos</a>
+    </div>
+</div>
+{% endblock %}

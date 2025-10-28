@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Video - IndieStream{% endblock %}
+
+{% block extra_css %}
+<style>
+    .upload-container {
+        max-width: 800px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 40px;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .upload-header {
+        margin-bottom: 30px;
+    }
+
+    .upload-title {
+        font-size: 28px;
+        font-weight: bold;
+        color: #212121;
+        margin-bottom: 10px;
+    }
+
+    .upload-subtitle {
+        font-size: 14px;
+        color: #878787;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group.full-width {
+        grid-column: 1 / -1;
+    }
+
+    .form-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #212121;
+        margin-bottom: 8px;
+    }
+
+    .form-label .required {
+        color: #ff5252;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 14px;
+        border: 1px solid #c2c2c2;
+        border-radius: 2px;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: #2874f0;
+    }
+
+    .form-control.textarea {
+        min-height: 120px;
+        resize: vertical;
+        font-family: inherit;
+    }
+
+    .form-select {
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 14px;
+        border: 1px solid #c2c2c2;
+        border-radius: 2px;
+        outline: none;
+        cursor: pointer;
+        background: #fff;
+    }
+
+    .form-select:focus {
+        border-color: #2874f0;
+    }
+
+    .form-help {
+        font-size: 12px;
+        color: #878787;
+        margin-top: 5px;
+    }
+
+    .upload-note {
+        background: #e3f2fd;
+        border-left: 4px solid #2874f0;
+        padding: 15px;
+        margin-bottom: 25px;
+        border-radius: 2px;
+    }
+
+    .upload-note-title {
+        font-weight: 600;
+        color: #1e5bc6;
+        margin-bottom: 5px;
+    }
+
+    .upload-note-text {
+        font-size: 13px;
+        color: #1976d2;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+        padding-top: 30px;
+        border-top: 1px solid #e0e0e0;
+    }
+
+    .btn {
+        padding: 14px 40px;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .btn-primary {
+        background: linear-gradient(to right, #2874f0, #1e5bc6);
+        color: #fff;
+        flex: 1;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(40, 116, 240, 0.3);
+    }
+
+    .btn-secondary {
+        background: #e0e0e0;
+        color: #212121;
+    }
+
+    .btn-secondary:hover {
+        background: #d0d0d0;
+    }
+
+    @media (max-width: 768px) {
+        .upload-container {
+            padding: 25px;
+        }
+
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="upload-container">
+    <div class="upload-header">
+        <h1 class="upload-title">Upload New Video 🎬</h1>
+        <p class="upload-subtitle">Share your creative work with the IndieStream community</p>
+    </div>
+
+    <div class="upload-note">
+        <div class="upload-note-title">📌 Note:</div>
+        <div class="upload-note-text">
+            Currently, you can upload video metadata. Video file hosting will be available in the next release.
+            Please provide a video URL if your content is hosted elsewhere.
+        </div>
+    </div>
+
+    <form method="POST" action="{{ url_for('upload_video') }}">
+        <div class="form-group">
+            <label class="form-label">Video Title <span class="required">*</span></label>
+            <input type="text" name="title" class="form-control" placeholder="Enter an engaging title" required>
+            <div class="form-help">Choose a clear and descriptive title</div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Description <span class="required">*</span></label>
+            <textarea name="description" class="form-control textarea" placeholder="Describe your video content..." required></textarea>
+            <div class="form-help">Tell viewers what your video is about</div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">Duration <span class="required">*</span></label>
+                <input type="text" name="duration" class="form-control" placeholder="e.g., 5:30 or 1:15:45" required>
+                <div class="form-help">Format: MM:SS or HH:MM:SS</div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">License Type <span class="required">*</span></label>
+                <select name="license_type" class="form-select" required>
+                    <option value="Standard">Standard License</option>
+                    <option value="Creative Commons">Creative Commons</option>
+                    <option value="Commercial">Commercial License</option>
+                    <option value="Personal Use">Personal Use Only</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Genre Tags</label>
+            <input type="text" name="genre_tags" class="form-control" placeholder="e.g., Comedy, Tutorial, Vlog">
+            <div class="form-help">Separate multiple tags with commas</div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Video URL (Optional)</label>
+            <input type="url" name="video_url" class="form-control" placeholder="https://example.com/your-video.mp4">
+            <div class="form-help">If your video is hosted externally</div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Thumbnail URL (Optional)</label>
+            <input type="url" name="thumbnail_url" class="form-control" placeholder="https://example.com/thumbnail.jpg">
+            <div class="form-help">Custom thumbnail image URL</div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">📤 Upload Video</button>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

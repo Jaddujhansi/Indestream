@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Register - IndieStream{% endblock %}
+
+{% block extra_css %}
+<style>
+    .auth-container {
+        max-width: 500px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 40px;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .auth-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .auth-title {
+        font-size: 28px;
+        font-weight: bold;
+        color: #212121;
+        margin-bottom: 10px;
+    }
+
+    .auth-subtitle {
+        font-size: 14px;
+        color: #878787;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #212121;
+        margin-bottom: 8px;
+    }
+
+    .form-label .required {
+        color: #ff5252;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 14px;
+        border: 1px solid #c2c2c2;
+        border-radius: 2px;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: #2874f0;
+    }
+
+    .form-control.textarea {
+        min-height: 100px;
+        resize: vertical;
+        font-family: inherit;
+    }
+
+    .form-help {
+        font-size: 12px;
+        color: #878787;
+        margin-top: 5px;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
+        font-weight: 600;
+        background: linear-gradient(to right, #2874f0, #1e5bc6);
+        color: #fff;
+        border: none;
+        border-radius: 2px;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(40, 116, 240, 0.3);
+    }
+
+    .auth-footer {
+        text-align: center;
+        margin-top: 25px;
+        padding-top: 25px;
+        border-top: 1px solid #e0e0e0;
+        font-size: 14px;
+        color: #878787;
+    }
+
+    .auth-footer a {
+        color: #2874f0;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .auth-footer a:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-header">
+        <h1 class="auth-title">Create Your Account</h1>
+        <p class="auth-subtitle">Join IndieStream and start sharing your videos</p>
+    </div>
+
+    <form method="POST" action="{{ url_for('register') }}">
+        <div class="form-group">
+            <label class="form-label">Full Name <span class="required">*</span></label>
+            <input type="text" name="full_name" class="form-control" placeholder="Enter your full name" required>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Username <span class="required">*</span></label>
+            <input type="text" name="username" class="form-control" placeholder="Choose a unique username" required>
+            <div class="form-help">This will be your public display name</div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Email Address <span class="required">*</span></label>
+            <input type="email" name="email" class="form-control" placeholder="your.email@example.com" required>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Password <span class="required">*</span></label>
+            <input type="password" name="password" class="form-control" placeholder="Create a strong password" required>
+            <div class="form-help">At least 8 characters recommended</div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Confirm Password <span class="required">*</span></label>
+            <input type="password" name="confirm_password" class="form-control" placeholder="Re-enter your password" required>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Bio (Optional)</label>
+            <textarea name="bio" class="form-control textarea" placeholder="Tell us about yourself and your content..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Create Account</button>
+    </form>
+
+    <div class="auth-footer">
+        Already have an account? <a href="{{ url_for('login') }}">Login here</a>
+    </div>
+</div>
+{% endblock %}

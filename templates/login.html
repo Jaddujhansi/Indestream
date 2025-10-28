@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}Login - IndieStream{% endblock %}
+
+{% block extra_css %}
+<style>
+    .auth-container {
+        max-width: 450px;
+        margin: 60px auto;
+        background: #fff;
+        padding: 40px;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .auth-header {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .auth-title {
+        font-size: 28px;
+        font-weight: bold;
+        color: #212121;
+        margin-bottom: 10px;
+    }
+
+    .auth-subtitle {
+        font-size: 14px;
+        color: #878787;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #212121;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 14px;
+        border: 1px solid #c2c2c2;
+        border-radius: 2px;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: #2874f0;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
+        font-weight: 600;
+        background: linear-gradient(to right, #2874f0, #1e5bc6);
+        color: #fff;
+        border: none;
+        border-radius: 2px;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(40, 116, 240, 0.3);
+    }
+
+    .auth-footer {
+        text-align: center;
+        margin-top: 25px;
+        padding-top: 25px;
+        border-top: 1px solid #e0e0e0;
+        font-size: 14px;
+        color: #878787;
+    }
+
+    .auth-footer a {
+        color: #2874f0;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .auth-footer a:hover {
+        text-decoration: underline;
+    }
+
+    .login-icon {
+        font-size: 64px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="login-icon">🎬</div>
+    <div class="auth-header">
+        <h1 class="auth-title">Welcome Back!</h1>
+        <p class="auth-subtitle">Login to access your IndieStream account</p>
+    </div>
+
+    <form method="POST" action="{{ url_for('login') }}">
+        <div class="form-group">
+            <label class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" placeholder="Enter your username" required autofocus>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
+        </div>
+
+        <button type="submit" class="btn-submit">Login</button>
+    </form>
+
+    <div class="auth-footer">
+        Don't have an account? <a href="{{ url_for('register') }}">Register now</a>
+    </div>
+</div>
+{% endblock %}

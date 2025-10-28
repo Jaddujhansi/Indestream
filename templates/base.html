@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}IndieStream - Independent Video Platform{% endblock %}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #f1f3f6;
+            color: #212121;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: linear-gradient(to right, #2874f0, #1e5bc6);
+            padding: 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            font-style: italic;
+        }
+
+        .logo-subtext {
+            font-size: 11px;
+            color: #ffe11b;
+            font-style: italic;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 40px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 50px 12px 20px;
+            border: none;
+            border-radius: 2px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-bar button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            padding: 0 20px;
+            background: #fff;
+            border: none;
+            cursor: pointer;
+            color: #2874f0;
+            font-weight: bold;
+        }
+
+        .search-bar button:hover {
+            background: #f7f7f7;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-link:hover {
+            opacity: 0.8;
+        }
+
+        .nav-link.login-btn {
+            background: #fff;
+            color: #2874f0;
+            padding: 8px 35px;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+
+        .nav-link.login-btn:hover {
+            background: #f7f7f7;
+            opacity: 1;
+        }
+
+        /* Flash Messages */
+        .flash-messages {
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .alert {
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 2px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+
+        .alert-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+
+        .alert-close {
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            opacity: 0.5;
+        }
+
+        .alert-close:hover {
+            opacity: 1;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: calc(100vh - 200px);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #172337;
+            color: #fff;
+            padding: 40px 20px 20px;
+            margin-top: 50px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: #878787;
+            text-transform: uppercase;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-section a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .footer-section a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #454d5e;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #878787;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-wrap: wrap;
+            }
+
+            .search-bar {
+                order: 3;
+                margin: 15px 0 0 0;
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .nav-links {
+                gap: 15px;
+                font-size: 14px;
+            }
+
+            .nav-link.login-btn {
+                padding: 6px 20px;
+            }
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="logo">
+                <div>
+                    <div class="logo-text">IndieStream</div>
+                    <div class="logo-subtext">Independent Videos</div>
+                </div>
+            </a>
+
+            <div class="search-bar">
+                <form action="{{ url_for('search') }}" method="GET">
+                    <input type="text" name="q" placeholder="Search for videos, creators, genres..." required>
+                    <button type="submit">🔍</button>
+                </form>
+            </div>
+
+            <div class="nav-links">
+                {% if session.user_id %}
+                    <a href="{{ url_for('dashboard') }}" class="nav-link">Dashboard</a>
+                    <a href="{{ url_for('browse') }}" class="nav-link">Browse</a>
+                    <a href="{{ url_for('upload_video') }}" class="nav-link">Upload</a>
+                    <a href="{{ url_for('profile') }}" class="nav-link">{{ session.full_name }}</a>
+                    <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('browse') }}" class="nav-link">Browse</a>
+                    <a href="{{ url_for('login') }}" class="nav-link login-btn">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        <span>{{ message }}</span>
+                        <span class="alert-close" onclick="this.parentElement.style.display='none'">&times;</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Main Content -->
+    <div class="main-content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>About</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Help</h3>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Report Content</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Policy</h3>
+                <ul>
+                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Copyright Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Social</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 IndieStream. All rights reserved. | Independent Video Platform for Creators</p>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
