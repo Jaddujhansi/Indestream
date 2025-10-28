@@ -20,7 +20,7 @@ app.secret_key = os.environ.get('SECRET_KEY', 'indiestream_secret_key_change_in_
 # ---------------------------------------
 # App Configuration
 # ---------------------------------------
-AWS_REGION_NAME = os.environ.get('AWS_REGION_NAME', 'us-east-1')
+AWS_REGION_NAME = os.environ.get('AWS_REGION_NAME', 'eu-north-1')
 
 # Table Names from .env
 USERS_TABLE_NAME = os.environ.get('USERS_TABLE_NAME', 'IndieStreamUsers')
@@ -756,4 +756,5 @@ def server_error(e):
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     debug_mode = os.environ.get('FLASK_ENV') == 'development'
+
     app.run(host='0.0.0.0', port=port, debug=debug_mode)
